@@ -1,0 +1,15 @@
+== Ironhide
+
+Ironhide provide extra functionalities to your rails app, which are:
+
+* Include external web content into your view
+
+=== Includer
+
+Includer provide a view helper method to allow you to consume web contents easily:
+
+  file_get_contents('http://github.com/felipecvo/ironhide/raw/master/README.rdoc')
+
+== Installation
+
+  gem install ironhide
