@@ -1,5 +1,4 @@
 require 'httpclient'
-require 'rails'
 
 module Ironhide
   class Includer
@@ -8,22 +7,35 @@ module Ironhide
       attr_writer :default_timeout
 
       def default_timeout
-        @default_timeout ||= 10.minutes
+        @default_timeout ||= 600
       end
 
       def get(url, timeout = default_timeout)
-        key = "Ironhide::Includer::#{Digest::MD5.hexdigest(url)}"
-        cached = Rails.cache.read(key)
+        cached = cache_read(url)
         return cached unless cached.nil?
 
         response = HTTPClient.get(url)
         if response.status_code == 200
           content = response.body.content
-          Rails.cache.write(key, content, :expires_in => timeout)
+          cache_write(url, content, timeout)
           content
         else
           nil
         end
+      end
+      
+      def cache_read(url)
+        return nil unless defined? Rails
+        Rails.cache.read(cache_key(url))
+      end
+      
+      def cache_write(url, value, timeout)
+        return unless defined? Rails
+        Rails.cache.write(cache_key(url), value, :expires_in => timeout)
+      end
+      
+      def cache_key(url)
+        "Ironhide::Includer::#{Digest::MD5.hexdigest(url)}"
       end
     end
 

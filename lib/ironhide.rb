@@ -10,4 +10,4 @@ end
 require 'ironhide/includer'
 require 'ironhide/helpers/includer_helper'
 
-Ironhide.enable_helpers
+Ironhide.enable_helpers if defined? Rails
