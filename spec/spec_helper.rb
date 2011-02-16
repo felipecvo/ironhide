@@ -21,7 +21,7 @@ require 'ironhide'
 require 'webmock/rspec'
 
 RSpec.configure do |config|
-  if Rails.version.first == '3'
+  if Rails.version.split('.').first == '3'
     Class.new(Rails::Application)
     Rails.application.initializers.select { |x| x.name == :initialize_cache }.first.run
   else
