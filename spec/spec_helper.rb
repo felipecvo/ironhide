@@ -3,16 +3,28 @@ require 'rubygems'
 begin
   # rails 3.0.x
   require 'rails'
+  require 'rails/application/configurable'
+  require 'rails/application/configuration'
+  require 'rails/application/bootstrap'
+  require 'rails/application/railties'
+  require 'rails/application/finisher'
+  require 'action_view'
+  require 'action_view/base'
+  require 'action_view/helpers'
+  require 'action_view/lookup_context'
+  require 'action_view/paths'
+  require 'active_support/cache'
+  require 'active_support/cache/memory_store'
 rescue LoadError
   # rails 2.3.x
   require 'initializer'
+  require 'action_view'
+  require 'action_view/base'
+  require 'action_view/helpers'
+  require 'action_view/paths'
+  require 'active_support/cache'
+  require 'active_support/cache/memory_store'
 end
-require 'action_view'
-require 'action_view/base'
-require 'action_view/helpers'
-require 'action_view/paths'
-require 'active_support/cache'
-require 'active_support/cache/memory_store'
 
 require 'bundler/setup'
 
